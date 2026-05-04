@@ -15,9 +15,9 @@ const config = {
     // The scene object imports MainScene
     scene: [MainScene],
     // Scale up game
-    scale: { 
-        zoom: 2,
-    },
+    // scale: { 
+    //     zoom: 2,
+    // },
     // Specify physics settings
     physics: {
         // Specify default as being matter physics engine because it's a bit more powerful than the default

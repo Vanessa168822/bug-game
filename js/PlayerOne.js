@@ -37,24 +37,24 @@ export default class PlayerOne extends Phaser.Physics.Matter.Sprite {
     // Runs continuously, 60 times per second (60fps)
     // Checks whether any keys were pressed, moves objects around, runs anmations and updates game logic like scores and collisions
     update() {
-        this.play("playerOne_idle", true);
         // Declare speed variable to determine how quickly character moves e.g 3 = 3 pixels per frame (180 pixels per second)
-        let speed = 0.5;
-        // if statement to check for left and right keys pressed to move player's x position by the number assigned in speed
+        const speed = 1;
+        // if statement to check for left, right, up and down keys pressed to move player's x and y position by the number assigned in speed
+        // Adds appropriate animations to each movement
         if (this.arrowKeys.left.isDown) {
             this.x -= speed;
-            this.play("playerOne_walkLeft");
+            this.play("playerOne_walkLeft", true);
         } else if (this.arrowKeys.right.isDown) {
             this.x += speed;
-            this.play("playerOne_walkRight");
-        }
-        // if statement to check for up and down keys pressed to move player's y position by the number assigned in speed
-        if (this.arrowKeys.up.isDown) {
+            this.play("playerOne_walkRight", true);
+        } else if (this.arrowKeys.up.isDown) {
             this.y -= speed;
-            this.play("playerOne_walkUp");
+            this.play("playerOne_walkUp", true);
         } else if (this.arrowKeys.down.isDown) {
             this.y += speed;
-            this.play("playerOne_walkDown");
+            this.play("playerOne_walkDown", true);
+        } else {
+            this.play("playerOne_idle", true);
         }
     }
 }

@@ -8,6 +8,8 @@ export default class MainScene extends Phaser.Scene {
         super("MainScene");
     }
 
+    scoreText;
+
     // Setup
     // Loads images, sounds, fonts and other assets ahead of time, so everything runs smoothly once it begins
     // Runs once, before the game starts
@@ -15,15 +17,14 @@ export default class MainScene extends Phaser.Scene {
         // 'this.load.image' loads and image file
         // 'background' is the key or name that you're giving the image, so that it can be referenced later
         // 'assets/frogbackground.png' is the image file path
-        this.load.image("tiles", "assets/TilesetFloor.png");
-        this.load.image("tiles", "assets/TilesetWater.png");
+        this.load.image("tilesFloor", "assets/TilesetFloor.png");
+        this.load.image("tilesWater", "assets/TilesetWater.png");
+        this.load.image("tilesNature", "assets/TilesetNature.png");
         this.load.tilemapTiledJSON("map", "assets/map1.json");
         PlayerOne.preload(this);
         PlayerTwo.preload(this);
         // Load sunflower image
         this.load.image("sunflower", "assets/flower.png");
-        // Load tansy bettle image
-        this.load.image("tansy-beetle", "assets/tansy-beetle-single.png");
     }
 
     // Launch
@@ -31,8 +32,16 @@ export default class MainScene extends Phaser.Scene {
     // Used to place assets onto their initial position on the screen
     create() {
        const map = this.make.tilemap({key: "map"});
-       const tileset = map.addTilesetImage("TilesetFloor", "tiles", 16, 16, 0, 0);
-       const layer1 = map.createLayer("Tile Layer 1", tileset, 0, 0);
+       const tileset1 = map.addTilesetImage("TilesetFloor", "tilesFloor", 16, 16, 0, 0);
+       const tileset2 = map.addTilesetImage("TilesetWater", "tilesWater", 16, 16, 0, 0);
+       const tileset3 = map.addTilesetImage("TilesetNature", "tilesNature", 16, 16, 0, 0);
+       const layer1 = map.createLayer("Tile Layer 1", tileset1, 0, 0);
+       const layer2 = map.createLayer("Tile Layer 2", tileset2, 0, 0);
+       const layer3 = map.createLayer("Tile Layer 3", tileset3, 0, 0);
+       layer2.setCollisionByProperty({collides:true});
+       this.matter.world.convertTilemapLayer(layer2);
+       layer3.setCollisionByProperty({collides:true});
+       this.matter.world.convertTilemapLayer(layer3);
 
         // Assign player one
         this.playerOne = new PlayerOne({scene:this, x:600, y:400, texture:"princess"});
@@ -53,7 +62,7 @@ export default class MainScene extends Phaser.Scene {
             function (pointer) {
                 // Add image at the x and y location of the input device when the input event happened
                 // 'setScale(0.5)' makes the image half its original size
-                this.add.image(pointer.x, pointer.y, "tansy-beetle").setScale(1);
+                this.add.image(pointer.x, pointer.y, "sunflower").setScale(1);
             },
             this
         );
@@ -149,6 +158,9 @@ export default class MainScene extends Phaser.Scene {
                 frames: [3, 7, 11, 15],
             })
         });
+
+        // The score
+        this.scoreText = this.add.text(18, 14, "Score: 0", {fontSize: "24px", fill: "#ffffff"});
     }
 
     // Loop
