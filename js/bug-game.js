@@ -15,31 +15,22 @@ const config = {
     // The scene object imports MainScene
     scene: [MainScene],
     // Scale up game
-    // scale: { 
-    //     zoom: 2,
-    // },
+    scale: { 
+        zoom: 1.6,
+    },
     // Specify physics settings
     physics: {
-        // Specify default as being matter physics engine because it's a bit more powerful than the default
-        default: "matter",
-        // Configuration for matter physics engine
-        matter: {
+        default: "arcade",
+        // Configuration for physics engine
+        arcade: {
             // Turn debugging on to see colliders
-            debug: true,
+            debug: false,
             // Turn gravity off because it's top down, not platformer
-            gravity: {y:0},
+            gravity: {
+                y: 0,
+                x: 0,
+            },
         }
-    },
-    // Specify the plugins being used
-    plugins: {
-        scene: [
-            {
-                plugin: PhaserMatterCollisionPlugin,
-                // Give a key to the plugin
-                key: "matterCollision",
-                mapping: "matterCollision"
-            }
-        ]
     }
 };
 
