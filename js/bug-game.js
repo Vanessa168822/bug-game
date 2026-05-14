@@ -1,4 +1,5 @@
 import MainScene from "./MainScene.js";
+import CameraScene from "./CameraScene.js";
 
 // The config object to configure and initialise the game
 const config = {
@@ -12,11 +13,14 @@ const config = {
     backgroundColor: "#cb188f",
     // Specify the parent?? id of the div in html
     parent: "bug-game",
+    // Make picture quility better for pixel art
+    pixelArt: true,
     // The scene object imports MainScene
-    scene: [MainScene],
-    // Scale up game
+    scene: [MainScene, CameraScene],
+    // Fit game to screen
     scale: { 
-        zoom: 1.6,
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     // Specify physics settings
     physics: {
